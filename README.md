@@ -20,6 +20,10 @@ This web application is designed to help guitarists practice playing along with 
 
 This training tool was inspired by Dark Cherry Studio in Ewell - https://www.darkcherrystudio.co.uk/
 
+Logos for rhytmic subdivisions are created with DALL-E (ChatGPT Image creation)
+
+All Code is written by ChatGTP-4 with promots from dario@jenario.com
+
 Dice images are provided by [studio4rt](https://www.freepik.com/free-vector/dice-game-black-cubes-with-white-dots-3d-realistic-gambling-objects-play-casino-dice-from-one-six-dots-rounded-edges-design-isolated-white-background_25872084.htm#query=dice&position=13&from_view=search&track=sph&uuid=be850e13-ec7e-4177-a9fb-b44fc937a614) on Freepik.
 
 ## More Information
