@@ -10,8 +10,13 @@
         #diceArea {
             margin-top: 20px;
         }
-        button {
-            margin-top: 10px;
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+        td, th {
+            border: 1px solid black;
+            padding: 5px;
         }
     </style>
 </head>
@@ -32,14 +37,32 @@
         var metronomeActive = false;
         var beep = new Audio('data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YU');
 
+        var soundMap = {
+            1: "Apple Pie",
+            2: "Hot Dog",
+            3: "Grape Soda",
+            4: "Food",
+            5: "Icecream Sundae",
+            6: "1/4 Rest"
+        };
+
         function rollDice() {
             var diceCount = document.getElementById('diceCount').value;
             var diceArea = document.getElementById('diceArea');
-            diceArea.innerHTML = '';
+            var table = '<table><tr><th>Dice Roll</th></tr><tr><th>Sound</th></tr>';
+            var diceRow = '<tr>';
+            var soundRow = '<tr>';
+
             for (var i = 0; i < diceCount; i++) {
                 var roll = Math.ceil(Math.random() * 6);
-                diceArea.innerHTML += 'Dice ' + (i + 1) + ': ' + roll + '<br>';
+                diceRow += '<td>' + roll + '</td>';
+                soundRow += '<td>' + soundMap[roll] + '</td>';
             }
+
+            diceRow += '</tr>';
+            soundRow += '</tr>';
+            table += diceRow + soundRow + '</table>';
+            diceArea.innerHTML = table;
         }
 
         function toggleMetronome() {
