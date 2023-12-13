@@ -6,6 +6,8 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
+            margin: 0;
+            padding: 0;
         }
         #infoLink {
             position: absolute;
@@ -17,12 +19,27 @@
             margin-top: 20px;
         }
         table {
+            width: 100%;
+            max-width: 600px;
             margin: 0 auto;
             border-collapse: collapse;
         }
         td, th {
             border: 1px solid black;
             padding: 5px;
+        }
+        img.dice {
+            width: 100%;
+            max-width: 50px;
+            height: auto;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            img.dice {
+                max-width: 30px;
+            }
         }
     </style>
 </head>
@@ -56,7 +73,14 @@
     <script>
         var metronomeInterval;
         var metronomeAudio = new Audio('https://dasali-jenario.github.io/Guitar-with-dice/metro.wav');
-
+        var diceImages = {
+            1: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/1.png',
+            2: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/2.png',
+            3: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/3.png',
+            4: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/4.png',
+            5: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/5.png',
+            6: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/6.png'
+        };
         var soundMap = {
             1: "Apple Pie",
             2: "Hot Dog",
@@ -87,7 +111,7 @@
             }
             table += '</tr><tr>';
             for (var k = 0; k < 4; k++) {
-                table += '<td>' + diceResults[k] + '</td>';
+                table += '<td><img src="' + diceImages[diceResults[k]] + '" class="dice" alt="Dice ' + diceResults[k] + '"></td>';
             }
             table += '</tr><tr>';
             for (var l = 0; l < 4; l++) {
@@ -110,10 +134,5 @@
             }
         }
     </script>
-
-    <!-- Attribution for Dice Images -->
-    <div>
-        <a href="https://www.freepik.com/free-vector/dice-game-black-cubes-with-white-dots-3d-realistic-gambling-objects-play-casino-dice-from-one-six-dots-rounded-edges-design-isolated-white-background_25872084.htm#query=dice&position=13&from_view=search&track=sph&uuid=be850e13-ec7e-4177-a9fb-b44fc937a614">Image by studio4rt</a> on Freepik
-    </div>
 </body>
 </html>
