@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Guitar Practice App v1.3</title>
+    <title>Guitar Practice App v1.4</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -38,11 +38,6 @@
         td, th {
             padding: 5px;
         }
-        img.dice {
-            width: 100%;
-            max-width: 50px;
-            height: auto;
-        }
         img.sound {
             width: 50px;
             height: auto;
@@ -56,7 +51,7 @@
             button, select, input {
                 font-size: 20px;
             }
-            img.dice {
+            img.sound {
                 max-width: 30px;
             }
         }
@@ -65,7 +60,7 @@
 <body>
     <div id="appContainer">
         <div id="titleArea">
-            <h2>Guitar Practice App v1.3</h2>
+            <h2>Guitar Practice App v1.4</h2>
             <div id="infoLink">
                 <a href="https://github.com/dasali-jenario/Guitar-with-dice/blob/main/README.md" title="Read more about this project" target="_blank">ℹ️</a>
             </div>
@@ -95,13 +90,21 @@
     <script>
         var metronomeInterval;
         var metronomeAudio = new Audio('https://dasali-jenario.github.io/Guitar-with-dice/metro.wav');
+        var diceImages = {
+            1: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/1.png',
+            2: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/2.png',
+            3: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/3.png',
+            4: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/4.png',
+            5: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/5.png',
+            6: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/6.png'
+        };
         var soundImages = {
-            "Apple Pie": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/blob/main/apple%20pie.png',
-            "Hot Dog": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/blob/main/hotdog.png',
-            "Grape Soda": 'https://raw.githubusercontent.com/Guitar-with-dice/blob/main/grapesoda.png',
-            "Food": 'https://raw.githubusercontent.com/Guitar-with-dice/blob/main/food.png',
-            "Icecream Sundae": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/blob/main/icecreamsundae.png',
-            "1/4 Rest": 'https://raw.githubusercontent.com/Guitar-with-dice/blob/main/rest.png'
+            "Apple Pie": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/apple%20pie.png',
+            "Hot Dog": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/hotdog.png',
+            "Grape Soda": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/grapesoda.png',
+            "Food": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/food.png',
+            "Icecream Sundae": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/icecreamsundae.png',
+            "1/4 Rest": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/rest.png'
         };
         var soundMap = {
             1: "Apple Pie",
@@ -126,8 +129,7 @@
             }
 
             var diceArea = document.getElementById('diceArea');
-            var table = '<table>';
-            table += '<tr>';
+            var table = '<table><tr>';
             for (var k = 0; k < 4; k++) {
                 var soundName = soundMap[diceResults[k]];
                 table += '<td><img src="' + soundImages[soundName] + '" class="sound" alt="' + soundName + '"><br>' + soundName + '</td>';
