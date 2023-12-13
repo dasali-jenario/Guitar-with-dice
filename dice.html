@@ -7,7 +7,7 @@
             font-family: Arial, sans-serif;
             text-align: center;
         }
-        #diceArea {
+        #diceArea, #metronomeControl {
             margin-top: 20px;
         }
         table {
@@ -22,19 +22,29 @@
 </head>
 <body>
     <h2>Guitar Practice App</h2>
+
+    <!-- Dice Selection and Roll -->
     <label for="diceCount">Choose number of dice:</label>
     <select id="diceCount">
         <option value="1">1 Dice</option>
         <option value="2">2 Dice</option>
         <option value="4">4 Dice</option>
     </select>
-    <br>
     <button onclick="rollDice()">Roll Dice</button>
-    <button onclick="toggleMetronome()">Toggle Metronome</button>
+
+    <!-- Metronome Controls -->
+    <div id="metronomeControl">
+        <label for="bpm">Metronome Speed (BPM):</label>
+        <input type="number" id="bpm" value="65">
+        <button onclick="startMetronome()">Start Metronome</button>
+        <button onclick="stopMetronome()">Stop Metronome</button>
+    </div>
+
+    <!-- Dice Display Area -->
     <div id="diceArea"></div>
+
     <script>
         var metronomeInterval;
-        var metronomeActive = false;
         var beep = new Audio('data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YU');
 
         var soundMap = {
@@ -65,13 +75,16 @@
             diceArea.innerHTML = table;
         }
 
-        function toggleMetronome() {
-            if (metronomeActive) {
+        function startMetronome() {
+            var bpm = document.getElementById('bpm').value;
+            var interval = 60000 / bpm;
+            stopMetronome(); // Stop any existing metronome
+            metronomeInterval = setInterval(() => beep.play(), interval);
+        }
+
+        function stopMetronome() {
+            if (metronomeInterval) {
                 clearInterval(metronomeInterval);
-                metronomeActive = false;
-            } else {
-                metronomeInterval = setInterval(() => beep.play(), 600); // 100 BPM
-                metronomeActive = true;
             }
         }
     </script>
