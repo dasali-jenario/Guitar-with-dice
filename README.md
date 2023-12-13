@@ -19,6 +19,7 @@ This web application is designed to help guitarists practice playing along with 
 ## Acknowledgements
 
 This training tool was inspired by Dark Cherry Studio in Ewell - https://www.darkcherrystudio.co.uk/
+Subdivion images also from Dark Cherry Studio training material.
 
 Logos for rhytmic subdivisions are created with DALL-E (ChatGPT Image creation)
 
