@@ -8,6 +8,15 @@
             text-align: center;
             margin: 0;
             padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #appContainer {
+            width: 90%;
+            max-width: 600px;
         }
         #infoLink {
             position: absolute;
@@ -20,8 +29,6 @@
         }
         table {
             width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
             border-collapse: collapse;
         }
         td, th {
@@ -33,9 +40,14 @@
             max-width: 50px;
             height: auto;
         }
+        button, select, input {
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+        }
         @media (max-width: 600px) {
-            body {
-                padding: 10px;
+            button, select, input {
+                font-size: 20px;
             }
             img.dice {
                 max-width: 30px;
@@ -44,31 +56,33 @@
     </style>
 </head>
 <body>
-    <div id="infoLink">
-        <a href="https://github.com/dasali-jenario/Guitar-with-dice/blob/main/README.md" title="Read more about this project">ℹ️</a>
+    <div id="appContainer">
+        <div id="infoLink">
+            <a href="https://github.com/dasali-jenario/Guitar-with-dice/blob/main/README.md" title="Read more about this project">ℹ️</a>
+        </div>
+
+        <h2>Guitar Practice App v1.0</h2>
+
+        <!-- Dice Selection and Roll -->
+        <label for="diceCount">Choose number of dice:</label>
+        <select id="diceCount">
+            <option value="1">1 Dice</option>
+            <option value="2">2 Dice</option>
+            <option value="4">4 Dice</option>
+        </select>
+        <button onclick="rollDice()">Roll Dice</button>
+
+        <!-- Metronome Controls -->
+        <div id="metronomeControl">
+            <label for="bpm">Metronome Speed (BPM):</label>
+            <input type="number" id="bpm" value="65">
+            <button onclick="startMetronome()">Start Metronome</button>
+            <button onclick="stopMetronome()">Stop Metronome</button>
+        </div>
+
+        <!-- Dice Display Area -->
+        <div id="diceArea"></div>
     </div>
-
-    <h2>Guitar Practice App v1.0</h2>
-
-    <!-- Dice Selection and Roll -->
-    <label for="diceCount">Choose number of dice:</label>
-    <select id="diceCount">
-        <option value="1">1 Dice</option>
-        <option value="2">2 Dice</option>
-        <option value="4">4 Dice</option>
-    </select>
-    <button onclick="rollDice()">Roll Dice</button>
-
-    <!-- Metronome Controls -->
-    <div id="metronomeControl">
-        <label for="bpm">Metronome Speed (BPM):</label>
-        <input type="number" id="bpm" value="65">
-        <button onclick="startMetronome()">Start Metronome</button>
-        <button onclick="stopMetronome()">Stop Metronome</button>
-    </div>
-
-    <!-- Dice Display Area -->
-    <div id="diceArea"></div>
 
     <script>
         var metronomeInterval;
