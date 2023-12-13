@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Guitar Practice App</title>
+    <title>Guitar Practice App v1.0</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
         }
-      {  <div style="text-align: right;">
-    <a href="https://github.com/dasali-jenario/Guitar-with-dice/blob/main/README.md" title="Read more about this project">
-        ℹ️
-    </a>
-</div> }
+        #infoLink {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+        }
         #diceArea, #metronomeControl {
             margin-top: 20px;
         }
@@ -26,7 +27,11 @@
     </style>
 </head>
 <body>
-    <h2>Guitar Practice App</h2>
+    <div id="infoLink">
+        <a href="https://github.com/dasali-jenario/Guitar-with-dice/blob/main/README.md" title="Read more about this project">ℹ️</a>
+    </div>
+
+    <h2>Guitar Practice App v1.0</h2>
 
     <!-- Dice Selection and Roll -->
     <label for="diceCount">Choose number of dice:</label>
@@ -105,5 +110,10 @@
             }
         }
     </script>
+
+    <!-- Attribution for Dice Images -->
+    <div>
+        <a href="https://www.freepik.com/free-vector/dice-game-black-cubes-with-white-dots-3d-realistic-gambling-objects-play-casino-dice-from-one-six-dots-rounded-edges-design-isolated-white-background_25872084.htm#query=dice&position=13&from_view=search&track=sph&uuid=be850e13-ec7e-4177-a9fb-b44fc937a614">Image by studio4rt</a> on Freepik
+    </div>
 </body>
 </html>
