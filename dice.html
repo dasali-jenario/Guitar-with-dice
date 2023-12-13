@@ -45,7 +45,7 @@
 
     <script>
         var metronomeInterval;
-        var beep = new Audio('data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YU');
+        var metronomeAudio = new Audio('https://dasali-jenario.github.io/Guitar-with-dice/metro.wav');
 
         var soundMap = {
             1: "Apple Pie",
@@ -79,7 +79,7 @@
             var bpm = document.getElementById('bpm').value;
             var interval = 60000 / bpm;
             stopMetronome(); // Stop any existing metronome
-            metronomeInterval = setInterval(() => beep.play(), interval);
+            metronomeInterval = setInterval(() => metronomeAudio.play(), interval);
         }
 
         function stopMetronome() {
