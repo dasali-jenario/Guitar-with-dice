@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Guitar Practice App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #diceArea {
+            margin-top: 20px;
+        }
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Guitar Practice App</h2>
+    <label for="diceCount">Choose number of dice:</label>
+    <select id="diceCount">
+        <option value="1">1 Dice</option>
+        <option value="2">2 Dice</option>
+        <option value="4">4 Dice</option>
+    </select>
+    <br>
+    <button onclick="rollDice()">Roll Dice</button>
+    <button onclick="toggleMetronome()">Toggle Metronome</button>
+    <div id="diceArea"></div>
+    <script>
+        var metronomeInterval;
+        var metronomeActive = false;
+        var beep = new Audio('data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YU');
+
+        function rollDice() {
+            var diceCount = document.getElementById('diceCount').value;
+            var diceArea = document.getElementById('diceArea');
+            diceArea.innerHTML = '';
+            for (var i = 0; i < diceCount; i++) {
+                var roll = Math.ceil(Math.random() * 6);
+                diceArea.innerHTML += 'Dice ' + (i + 1) + ': ' + roll + '<br>';
+            }
+        }
+
+        function toggleMetronome() {
+            if (metronomeActive) {
+                clearInterval(metronomeInterval);
+                metronomeActive = false;
+            } else {
+                metronomeInterval = setInterval(() => beep.play(), 600); // 100 BPM
+                metronomeActive = true;
+            }
+        }
+    </script>
+</body>
+</html>
