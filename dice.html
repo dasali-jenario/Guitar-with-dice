@@ -57,21 +57,33 @@
         };
 
         function rollDice() {
-            var diceCount = document.getElementById('diceCount').value;
-            var diceArea = document.getElementById('diceArea');
-            var table = '<table><tr><th>Dice Roll</th></tr><tr><th>Sound</th></tr>';
-            var diceRow = '<tr>';
-            var soundRow = '<tr>';
-
+            var diceCount = parseInt(document.getElementById('diceCount').value);
+            var diceResults = [];
             for (var i = 0; i < diceCount; i++) {
-                var roll = Math.ceil(Math.random() * 6);
-                diceRow += '<td>' + roll + '</td>';
-                soundRow += '<td>' + soundMap[roll] + '</td>';
+                diceResults.push(Math.ceil(Math.random() * 6));
             }
 
-            diceRow += '</tr>';
-            soundRow += '</tr>';
-            table += diceRow + soundRow + '</table>';
+            // Adjusting the dice results to always have 4 columns
+            if (diceCount === 1) {
+                diceResults = [diceResults[0], diceResults[0], diceResults[0], diceResults[0]];
+            } else if (diceCount === 2) {
+                diceResults = [diceResults[0], diceResults[1], diceResults[0], diceResults[1]];
+            }
+
+            var diceArea = document.getElementById('diceArea');
+            var table = '<table><tr>';
+            for (var j = 0; j < 4; j++) {
+                table += '<th>Dice ' + (j + 1) + '</th>';
+            }
+            table += '</tr><tr>';
+            for (var k = 0; k < 4; k++) {
+                table += '<td>' + diceResults[k] + '</td>';
+            }
+            table += '</tr><tr>';
+            for (var l = 0; l < 4; l++) {
+                table += '<td>' + soundMap[diceResults[l]] + '</td>';
+            }
+            table += '</tr></table>';
             diceArea.innerHTML = table;
         }
 
