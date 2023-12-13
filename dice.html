@@ -3,8 +3,33 @@
 <head>
     <title>Guitar Practice App v1.3</title>
     <style>
-        /* ... (Other styles remain the same) ... */
-
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #appContainer {
+            width: 90%;
+            max-width: 600px;
+        }
+        #titleArea {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #infoLink {
+            margin-left: 10px;
+            font-size: 24px;
+        }
+        #diceArea, #metronomeControl {
+            margin-top: 20px;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -13,15 +38,59 @@
         td, th {
             padding: 5px;
         }
+        img.dice {
+            width: 100%;
+            max-width: 50px;
+            height: auto;
+        }
         img.sound {
             width: 50px;
             height: auto;
         }
-        /* ... (Other styles remain the same) ... */
+        button, select, input {
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+        }
+        @media (max-width: 600px) {
+            button, select, input {
+                font-size: 20px;
+            }
+            img.dice {
+                max-width: 30px;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- ... (Other HTML elements remain the same) ... -->
+    <div id="appContainer">
+        <div id="titleArea">
+            <h2>Guitar Practice App v1.3</h2>
+            <div id="infoLink">
+                <a href="https://github.com/dasali-jenario/Guitar-with-dice/blob/main/README.md" title="Read more about this project" target="_blank">ℹ️</a>
+            </div>
+        </div>
+
+        <!-- Dice Selection and Roll -->
+        <label for="diceCount">Choose number of dice:</label>
+        <select id="diceCount">
+            <option value="1">1 Dice</option>
+            <option value="2">2 Dice</option>
+            <option value="4">4 Dice</option>
+        </select>
+        <button onclick="rollDice()">Roll Dice</button>
+
+        <!-- Metronome Controls -->
+        <div id="metronomeControl">
+            <label for="bpm">Metronome Speed (BPM):</label>
+            <input type="number" id="bpm" value="65">
+            <button onclick="startMetronome()">Start Metronome</button>
+            <button onclick="stopMetronome()">Stop Metronome</button>
+        </div>
+
+        <!-- Dice Display Area -->
+        <div id="diceArea"></div>
+    </div>
 
     <script>
         var metronomeInterval;
@@ -44,7 +113,17 @@
         };
 
         function rollDice() {
-            // ... (Function logic remains the same) ...
+            var diceCount = parseInt(document.getElementById('diceCount').value);
+            var diceResults = [];
+            for (var i = 0; i < diceCount; i++) {
+                diceResults.push(Math.ceil(Math.random() * 6));
+            }
+
+            if (diceCount === 1) {
+                diceResults = [diceResults[0], diceResults[0], diceResults[0], diceResults[0]];
+            } else if (diceCount === 2) {
+                diceResults = [diceResults[0], diceResults[1], diceResults[0], diceResults[1]];
+            }
 
             var diceArea = document.getElementById('diceArea');
             var table = '<table>';
@@ -57,7 +136,18 @@
             diceArea.innerHTML = table;
         }
 
-        // ... (Other JavaScript functions remain the same) ...
+        function startMetronome() {
+            var bpm = document.getElementById('bpm').value;
+            var interval = 60000 / bpm;
+            stopMetronome();
+            metronomeInterval = setInterval(() => metronomeAudio.play(), interval);
+        }
+
+        function stopMetronome() {
+            if (metronomeInterval) {
+                clearInterval(metronomeInterval);
+            }
+        }
     </script>
 </body>
 </html>
