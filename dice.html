@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Guitar Practice App v1.2</title>
+    <title>Guitar Practice App v1.3</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -61,7 +61,7 @@
 <body>
     <div id="appContainer">
         <div id="titleArea">
-            <h2>Guitar Practice App v1.2</h2>
+            <h2>Guitar Practice App v1.3</h2>
             <div id="infoLink">
                 <a href="https://github.com/dasali-jenario/Guitar-with-dice/blob/main/README.md" title="Read more about this project" target="_blank">ℹ️</a>
             </div>
@@ -89,7 +89,67 @@
     </div>
 
     <script>
-        // ... (JavaScript remains the same)
+        var metronomeInterval;
+        var metronomeAudio = new Audio('https://dasali-jenario.github.io/Guitar-with-dice/metro.wav');
+        var diceImages = {
+            1: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/1.png',
+            2: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/2.png',
+            3: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/3.png',
+            4: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/4.png',
+            5: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/5.png',
+            6: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/6.png'
+        };
+        var soundMap = {
+            1: "Apple Pie",
+            2: "Hot Dog",
+            3: "Grape Soda",
+            4: "Food",
+            5: "Icecream Sundae",
+            6: "1/4 Rest"
+        };
+
+        function rollDice() {
+            var diceCount = parseInt(document.getElementById('diceCount').value);
+            var diceResults = [];
+            for (var i = 0; i < diceCount; i++) {
+                diceResults.push(Math.ceil(Math.random() * 6));
+            }
+
+            if (diceCount === 1) {
+                diceResults = [diceResults[0], diceResults[0], diceResults[0], diceResults[0]];
+            } else if (diceCount === 2) {
+                diceResults = [diceResults[0], diceResults[1], diceResults[0], diceResults[1]];
+            }
+
+            var diceArea = document.getElementById('diceArea');
+            var table = '<table><tr>';
+            for (var j = 0; j < 4; j++) {
+                table += '<th>Dice ' + (j + 1) + '</th>';
+            }
+            table += '</tr><tr>';
+            for (var k = 0; k < 4; k++) {
+                table += '<td><img src="' + diceImages[diceResults[k]] + '" class="dice" alt="Dice ' + diceResults[k] + '"></td>';
+            }
+            table += '</tr><tr>';
+            for (var l = 0; l < 4; l++) {
+                table += '<td>' + soundMap[diceResults[l]] + '</td>';
+            }
+            table += '</tr></table>';
+            diceArea.innerHTML = table;
+        }
+
+        function startMetronome() {
+            var bpm = document.getElementById('bpm').value;
+            var interval = 60000 / bpm;
+            stopMetronome();
+            metronomeInterval = setInterval(() => metronomeAudio.play(), interval);
+        }
+
+        function stopMetronome() {
+            if (metronomeInterval) {
+                clearInterval(metronomeInterval);
+            }
+        }
     </script>
 </body>
 </html>
