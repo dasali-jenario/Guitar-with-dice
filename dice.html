@@ -153,28 +153,30 @@
             diceArea.innerHTML = table;
         }
 
-        function toggleMetronome() {
-            if (isMetronomePlaying) {
-                clearInterval(metronomeInterval);
-                metronomeButton.textContent = 'Start Metronome';
-                metronomeButton.style.backgroundColor = ''; // Reset color
-                isMetronomePlaying = false;
-            } else {
-                var bpm = document.getElementById('bpm').value;
-                if (bpm < 30 || bpm > 180) {
-                    alert('BPM should be between 30 and 180');
-                    return;
-                }
-                var interval = 60000 / bpm;
-                metronomeInterval = setInterval(() => {
-                    metronomeAudio.play();
-                    metronomeButton.style.backgroundColor = 'green';
-                    setTimeout(() => { metronomeButton.style.backgroundColor = ''; }, 500); // Change color for 0.5s
-                }, interval);
-                metronomeButton.textContent = 'Stop Metronome';
-                isMetronomePlaying = true;
-            }
+function toggleMetronome() {
+    if (isMetronomePlaying) {
+        clearInterval(metronomeInterval);
+        metronomeButton.textContent = 'Start Metronome';
+        isMetronomePlaying = false;
+    } else {
+        var bpm = document.getElementById('bpm').value;
+        if (bpm < 30 || bpm > 180) {
+            alert('BPM should be between 30 and 180');
+            return;
         }
+        var interval = 60000 / bpm;
+        metronomeInterval = setInterval(() => {
+            setTimeout(() => {
+                metronomeAudio.play();
+            }, 0); // Adjust the timeout to align audio with visual
+            metronomeButton.style.backgroundColor = 'green';
+            setTimeout(() => { metronomeButton.style.backgroundColor = ''; }, 500); // Change color for 0.5s
+        }, interval);
+        metronomeButton.textContent = 'Stop Metronome';
+        isMetronomePlaying = true;
+    }
+}
+
     </script>
 </body>
 </html>
