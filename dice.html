@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Guitar Practice App v1.6.1b</title>
+    <title>Guitar Practice App v1.6.1</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,7 +27,7 @@
             margin-left: 10px;
             font-size: 24px;
         }
-        #diceArea, #metronomeControl {
+        #diceArea, #metronomeControl, #buttonArea {
             margin-top: 20px;
         }
         table {
@@ -50,26 +50,37 @@
         input[type="number"] {
             width: 80px;
         }
+        @media (max-width: 600px) {
+            button, select, input[type="number"] {
+                font-size: 16px;
+                padding: 10px;
+            }
+            img.sound, img.rhythm {
+                width: 80px;
+            }
+        }
     </style>
 </head>
 <body>
     <div id="appContainer">
         <div id="titleArea">
-            <h2>Guitar Practice App v1.6.1b</h2>
+            <h2>Guitar Practice App v1.6.1</h2>
             <div id="infoLink">
                 <a href="https://github.com/dasali-jenario/Guitar-with-dice/blob/main/README.md" title="Read more about this project" target="_blank">ℹ️</a>
             </div>
         </div>
 
-        <!-- Dice Selection and Roll -->
-        <label for="diceCount">Choose number of dice:</label>
-        <select id="diceCount">
-            <option value="1">1 Dice</option>
-            <option value="2">2 Dice</option>
-            <option value="4">4 Dice</option>
-        </select>
-        <button onclick="rollDice()">Roll Dice</button>
-        <button id="hotdogFoodButton" onclick="generateHotdogFoodCombination()">Hotdog-Food</button>
+        <div id="buttonArea">
+            <!-- Dice Selection and Roll -->
+            <label for="diceCount">Choose number of dice:</label>
+            <select id="diceCount">
+                <option value="1">1 Dice</option>
+                <option value="2">2 Dice</option>
+                <option value="4">4 Dice</option>
+            </select>
+            <button onclick="rollDice()">Roll Dice</button>
+            <button id="hotdogFoodButton" onclick="generateHotdogFoodCombination()">Hotdog-Food</button>
+        </div>
 
         <!-- Metronome Controls -->
         <div id="metronomeControl">
@@ -87,6 +98,15 @@
         var metronomeAudio = new Audio('https://dasali-jenario.github.io/Guitar-with-dice/metronome.mp3');
         var metronomeButton = document.getElementById('metronomeButton');
 
+        var soundMap = {
+            1: "hot dog",
+            2: "food",
+            3: "Apple Pie",
+            4: "Grape Soda",
+            5: "Icecream Sundae",
+            6: "1/4 Rest"
+        };
+
         var soundImages = {
             "Apple Pie": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/apple%20pie.png',
             "Hot Dog": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/hotdog.png',
@@ -96,6 +116,15 @@
             "1/4 Rest": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/rest.png'
         };
 
+        var rhythmImages = {
+            "Apple Pie": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-applepie.png',
+            "Hot Dog": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-hotdog.png',
+            "Grape Soda": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-grapesoda.png',
+            "Food": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-food.png',
+            "Icecream Sundae": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-icecreamsunday.png',
+            "1/4 Rest": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-rest.png'
+        };
+
         function rollDice() {
             var diceCount = parseInt(document.getElementById('diceCount').value);
             var diceResults = [];
@@ -103,25 +132,23 @@
                 diceResults.push(Math.ceil(Math.random() * 6));
             }
 
-            if (diceCount === 1) {
-                diceResults = [diceResults[0], diceResults[0], diceResults[0], diceResults[0]];
-            } else if (diceCount === 2) {
-                diceResults = [diceResults[0], diceResults[1], diceResults[0], diceResults[1]];
-            }
-
             var diceArea = document.getElementById('diceArea');
+            diceArea.innerHTML = generateTable(diceResults);
+        }
+
+        function generateTable(diceResults) {
             var table = '<table><tr>';
-            for (var k = 0; k < 4; k++) {
+            for (var k = 0; k < diceResults.length; k++) {
                 var soundName = soundMap[diceResults[k]];
                 table += '<td><img src="' + soundImages[soundName] + '" class="sound" alt="' + soundName + '"><br>' + soundName + '</td>';
             }
             table += '</tr><tr>';
-            for (var l = 0; l < 4; l++) {
+            for (var l = 0; l < diceResults.length; l++) {
                 var rhythmName = soundMap[diceResults[l]];
                 table += '<td><img src="' + rhythmImages[rhythmName] + '" class="rhythm" alt="' + rhythmName + '"></td>';
             }
             table += '</tr></table>';
-            diceArea.innerHTML = table;
+            return table;
         }
 
         function toggleMetronome() {
@@ -130,7 +157,7 @@
                 metronomeButton.textContent = 'Start Metronome';
                 isMetronomePlaying = false;
             } else {
-                var bpm = document.getElementById('bpm').value;
+                var bpm = parseInt(document.getElementById('bpm').value);
                 if (bpm < 30 || bpm > 180) {
                     alert('BPM should be between 30 and 180');
                     return;
@@ -148,38 +175,29 @@
 
         function generateHotdogFoodCombination() {
             var combinations = [
-                ["hot dog", "hot dog", "hot dog", "hot dog"],
-                ["hot dog", "hot dog", "hot dog", "food"],
-                ["hot dog", "hot dog", "food", "hot dog"],
-                ["hot dog", "hot dog", "food", "food"],
-                ["hot dog", "food", "hot dog", "hot dog"],
-                ["hot dog", "food", "hot dog", "food"],
-                ["hot dog", "food", "food", "hot dog"],
-                ["hot dog", "food", "food", "food"],
-                ["food", "hot dog", "hot dog", "hot dog"],
-                ["food", "hot dog", "hot dog", "food"],
-                ["food", "hot dog", "food", "hot dog"],
-                ["food", "hot dog", "food", "food"],
-                ["food", "food", "hot dog", "hot dog"],
-                ["food", "food", "hot dog", "food"],
-                ["food", "food", "food", "hot dog"],
-                ["food", "food", "food", "food"]
+        [1, 1, 1, 1], // hot dog, hot dog, hot dog, hot dog
+        [1, 1, 1, 2], // hot dog, hot dog, hot dog, food
+        [1, 1, 2, 1], // hot dog, hot dog, food, hot dog
+        [1, 1, 2, 2], // hot dog, hot dog, food, food
+        [1, 2, 1, 1], // hot dog, food, hot dog, hot dog
+        [1, 2, 1, 2], // hot dog, food, hot dog, food
+        [1, 2, 2, 1], // hot dog, food, food, hot dog
+        [1, 2, 2, 2], // hot dog, food, food, food
+        [2, 1, 1, 1], // food, hot dog, hot dog, hot dog
+        [2, 1, 1, 2], // food, hot dog, hot dog, food
+        [2, 1, 2, 1], // food, hot dog, food, hot dog
+        [2, 1, 2, 2], // food, hot dog, food, food
+        [2, 2, 1, 1], // food, food, hot dog, hot dog
+        [2, 2, 1, 2], // food, food, hot dog, food
+        [2, 2, 2, 1], // food, food, food, hot dog
+        [2, 2, 2, 2]  // food, food, food, food
             ];
 
             var randomIndex = Math.floor(Math.random() * combinations.length);
-            var selectedCombination = combinations[randomIndex];
-
             var diceArea = document.getElementById('diceArea');
-            var table = '<table><tr>';
-
-            for (var i = 0; i < 4; i++) {
-                var soundName = selectedCombination[i];
-                table += '<td><img src="' + soundImages[soundName] + '" class="sound" alt="' + soundName + '"><br>' + soundName + '</td>';
-            }
-
-            table += '</tr></table>';
-            diceArea.innerHTML = table;
+            diceArea.innerHTML = generateTable(combinations[randomIndex]);
         }
     </script>
 </body>
 </html>
+
