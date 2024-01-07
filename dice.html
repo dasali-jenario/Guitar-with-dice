@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Guitar Practice App v1.6.1</title>
+    <title>Guitar Practice App v1.6.1b</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -55,7 +55,7 @@
 <body>
     <div id="appContainer">
         <div id="titleArea">
-            <h2>Guitar Practice App v1.6.1</h2>
+            <h2>Guitar Practice App v1.6.1b</h2>
             <div id="infoLink">
                 <a href="https://github.com/dasali-jenario/Guitar-with-dice/blob/main/README.md" title="Read more about this project" target="_blank">ℹ️</a>
             </div>
@@ -86,6 +86,7 @@
         var isMetronomePlaying = false;
         var metronomeAudio = new Audio('https://dasali-jenario.github.io/Guitar-with-dice/metronome.mp3');
         var metronomeButton = document.getElementById('metronomeButton');
+
         var soundImages = {
             "Apple Pie": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/apple%20pie.png',
             "Hot Dog": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/hotdog.png',
@@ -93,22 +94,6 @@
             "Food": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/food.png',
             "Icecream Sundae": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/icecreamsundae.png',
             "1/4 Rest": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/rest.png'
-        };
-        var rhythmImages = {
-            "Apple Pie": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-applepie.png',
-            "Hot Dog": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-hotdog.png',
-            "Grape Soda": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-grapesoda.png',
-            "Food": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-food.png',
-            "Icecream Sundae": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-icecreamsunday.png',
-            "1/4 Rest": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-rest.png'
-        };
-        var soundMap = {
-            1: "Apple Pie",
-            2: "Hot Dog",
-            3: "Grape Soda",
-            4: "Food",
-            5: "Icecream Sundae",
-            6: "1/4 Rest"
         };
 
         function rollDice() {
