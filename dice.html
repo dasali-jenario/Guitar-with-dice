@@ -184,23 +184,23 @@
                 isMetronomePlaying = true;
             }
         }
-        function generateHotdogFoodCombination() {
-        var rhythms = [];
-        if (document.getElementById('foodCheckbox').checked) {
-            rhythms.push('Food');
-        }
-        if (document.getElementById('hotdogCheckbox').checked) {
-            rhythms.push('Hot Dog');
-        }
+    function generateHotdogFoodCombination() {
+    var rhythms = [];
+    if (document.getElementById('foodCheckbox').checked) {
+        rhythms.push('Food');
+    }
+    if (document.getElementById('hotdogCheckbox').checked) {
+        rhythms.push('Hot Dog');
+    }
 
-        var combination = '';
-        for (var i = 0; i < 4; i++) {
-            var randomIndex = Math.floor(Math.random() * rhythms.length);
-            combination += rhythms[randomIndex] + ' ';
-        }
+    var combination = '';
+    for (var i = 0; i < 4; i++) {
+        var randomIndex = Math.floor(Math.random() * rhythms.length);
+        combination += rhythms[randomIndex] + ' ';
+    }
 
-        // Display the combination
-        // ...
+    // Display the combination
+    // ....
     }
     </script>
 </body>
