@@ -166,10 +166,11 @@
                 }
                 var interval = 60000 / bpm;
                 metronomeInterval = setInterval(() => {
-                    metronomeAudio.play();
-                    metronomeButton.style.backgroundColor = 'green';
-                    setTimeout(() => { metronomeButton.style.backgroundColor = ''; }, 500); // Change color for 0.5s
-                }, interval);
+    metronomeAudio.play().then(() => {
+        metronomeButton.style.backgroundColor = 'green';
+        setTimeout(() => { metronomeButton.style.backgroundColor = ''; }, 500); // Change color for 0.5s
+    });
+}, interval);
                 metronomeButton.textContent = 'Stop Metronome';
                 isMetronomePlaying = true;
             }
