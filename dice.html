@@ -1,207 +1,201 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <h2>Guitar Practice App</h2>
-    <p id="buildInfo">Build number: 1, Build time: N/A</p>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        #appContainer {
-            width: 80%; /* Increased width */
-            max-width: 1000px;
-        }
-        #titleArea {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        #infoLink {
-            margin-left: 10px;
-            font-size: 24px;
-        }
-        #diceArea, #metronomeControl {
-            margin-top: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: center;
-        }
-        td, th {
-            padding: 10px; /* Increased padding for images */
-        }
-        img.sound, img.rhythm {
-            width: 100px; /* Increased image size */
-            height: auto;
-        }
-        button, select, input[type="number"] {
-            padding: 15px;
-            margin: 5px;
-            font-size: 20px;
-        }
-        input[type="number"] {
-            width: 80px; /* Smaller input field for BPM */
-        }
-    </style>
+   <h2>Guitar Practice App</h2>
+   <p id="buildInfo">Build number: 1, Build time: N/A</p>
+   <style>
+       body {
+           font-family: Arial, sans-serif;
+           text-align: center;
+           margin: 0;
+           padding: 0;
+           display: flex;
+           flex-direction: column;
+           justify-content: center;
+           align-items: center;
+           height: 100vh;
+       }
+       #appContainer {
+           width: 80%; /* Increased width */
+           max-width: 1000px;
+       }
+       #titleArea {
+           display: flex;
+           justify-content: center;
+           align-items: center;
+       }
+       #infoLink {
+           margin-left: 10px;
+           font-size: 24px;
+       }
+       #diceArea, #metronomeControl {
+           margin-top: 20px;
+       }
+       table {
+           width: 100%;
+           border-collapse: collapse;
+           text-align: center;
+       }
+       td, th {
+           padding: 10px; /* Increased padding for images */
+       }
+       img.sound, img.rhythm {
+           width: 100px; /* Increased image size */
+           height: auto;
+       }
+       button, select, input[type="number"] {
+           padding: 15px;
+           margin: 5px;
+           font-size: 20px;
+       }
+       input[type="number"] {
+           width: 80px; /* Smaller input field for BPM */
+       }
+   </style>
 </head>
 <body>
-    <div id="appContainer">
-        <div id="titleArea">
-            <h2>Guitar Practice App v1.6</h2>
-            <div id="infoLink">
-                <a href="https://github.com/dasali-jenario/Guitar-with-dice/blob/main/README.md" title="Read more about this project" target="_blank">ℹ️</a>
-            </div>
-        </div>
-        <input type="checkbox" id="foodCheckbox" value="Food" checked> Food<br>
-        <input type="checkbox" id="hotdogCheckbox" value="Hot Dog" checked> Hot Dog<br>
-        <input type="checkbox" id="applePieCheckbox" value="Apple Pie" checked> Apple Pie<br>
-        <!-- Add more checkboxes as needed -->
-        
-        <!-- Dice Selection and Roll -->
-        <label for="diceCount">Choose number of dice:</label>
-        <select id="diceCount">
-            <option value="1">1 Dice</option>
-            <option value="2">2 Dice</option>
-            <option value="4">4 Dice</option>
-        </select>
-        <button onclick="rollDice()">Roll Dice</button>
+   <div id="appContainer">
+       <div id="titleArea">
+           <h2>Guitar Practice App v1.6</h2>
+           <div id="infoLink">
+               <a href="https://github.com/dasali-jenario/Guitar-with-dice/blob/main/README.md" title="Read more about this project" target="_blank">ℹ️</a>
+           </div>
+       </div>
 
-        <!-- Metronome Controls -->
-        <div id="metronomeControl">
-            <label for="bpm">Metronome Speed (BPM):</label>
-            <input type="number" id="bpm" value="65" min="30" max="180">
-            <button id="metronomeButton" onclick="toggleMetronome()">Start Metronome</button>
-        </div>
 
-        <div id="diceArea"></div>
-    </div>
+       <!-- Dice Selection and Roll -->
+       <label for="diceCount">Choose number of dice:</label>
+       <select id="diceCount">
+           <option value="1">1 Dice</option>
+           <option value="2">2 Dice</option>
+           <option value="4">4 Dice</option>
+       </select>
+       <button onclick="rollDice()">Roll Dice</button>
 
-    <script>
-        var metronomeInterval;
-        var isMetronomePlaying = false;
+
+       <!-- Metronome Controls -->
+       <div id="metronomeControl">
+           <label for="bpm">Metronome Speed (BPM):</label>
+           <input type="number" id="bpm" value="65" min="30" max="180">
+           <button id="metronomeButton" onclick="toggleMetronome()">Start Metronome</button>
+       </div>
+
+
+       <div id="diceArea"></div>
+   </div>
+
+
+   <script>
+       var metronomeInterval;
+       var isMetronomePlaying = false;
 //        var metronomeAudio = new Audio('https://dasali-jenario.github.io/Guitar-with-dice/metro.wav');
-        var metronomeAudio = new Audio('https://dasali-jenario.github.io/Guitar-with-dice/metronome.mp3');
+       var metronomeAudio = new Audio('https://dasali-jenario.github.io/Guitar-with-dice/metronome.mp3');
 
-        var metronomeButton = document.getElementById('metronomeButton');
-        
-        var diceImages = {
-            1: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/1.png',
-            2: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/2.png',
-            3: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/3.png',
-            4: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/4.png',
-            5: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/5.png',
-            6: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/6.png'
-        };
-        
-        var soundImages = {
-            "Apple Pie": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/apple%20pie.png',
-            "Hot Dog": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/hotdog.png',
-            "Grape Soda": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/grapesoda.png',
-            "Food": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/food.png',
-            "Icecream Sundae": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/icecreamsundae.png',
-            "1/4 Rest": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/rest.png'
-        };
-        
-        var rhythmImages = {
-            "Apple Pie": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-applepie.png',
-            "Hot Dog": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-hotdog.png',
-            "Grape Soda": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-grapesoda.png',
-            "Food": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-food.png',
-            "Icecream Sundae": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-icecreamsunday.png',
-            "1/4 Rest": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-rest.png'
-        };
-        
-     //   var soundMap = {
-     //       1: "Apple Pie",
-     //       2: "Hot Dog",
-    //        3: "Grape Soda",
-     //       4: "Food",
-     //       5: "Icecream Sundae",
-     //       6: "1/4 Rest"
-    //    };
 
-        function createSoundMap() {
-            var soundMap = {};
-            var checkboxes = document.querySelectorAll('input[type=checkbox]');
-            var index = 1;
-        checkboxes.forEach(function(checkbox) {
-            if (checkbox.checked) {
-                soundMap[index] = checkbox.value;
-             index++;
-        }
-    });
-    return soundMap;
-}
+       var metronomeButton = document.getElementById('metronomeButton');
+      
+       var diceImages = {
+           1: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/1.png',
+           2: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/2.png',
+           3: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/3.png',
+           4: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/4.png',
+           5: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/5.png',
+           6: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/6.png'
+       };
+      
+       var soundImages = {
+           "Apple Pie": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/apple%20pie.png',
+           "Hot Dog": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/hotdog.png',
+           "Grape Soda": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/grapesoda.png',
+           "Food": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/food.png',
+           "Icecream Sundae": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/icecreamsundae.png',
+           "1/4 Rest": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/rest.png'
+       };
+      
+       var rhythmImages = {
+           "Apple Pie": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-applepie.png',
+           "Hot Dog": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-hotdog.png',
+           "Grape Soda": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-grapesoda.png',
+           "Food": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-food.png',
+           "Icecream Sundae": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-icecreamsunday.png',
+           "1/4 Rest": 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-rest.png'
+       };
+      
+       var soundMap = {
+           1: "Apple Pie",
+           2: "Hot Dog",
+           3: "Grape Soda",
+           4: "Food",
+           5: "Icecream Sundae",
+           6: "1/4 Rest"
+       };
 
-var soundMap = createSoundMap();
-        function rollDice() {
-            var diceCount = parseInt(document.getElementById('diceCount').value);
-            var diceResults = [];
-            for (var i = 0; i < diceCount; i++) {
-                diceResults.push(Math.ceil(Math.random() * 6));
-            }
 
-            if (diceCount === 1) {
-                diceResults = [diceResults[0], diceResults[0], diceResults[0], diceResults[0]];
-            } else if (diceCount === 2) {
-                diceResults = [diceResults[0], diceResults[1], diceResults[0], diceResults[1]];
-            }
+       function rollDice() {
+           var diceCount = parseInt(document.getElementById('diceCount').value);
+           var diceResults = [];
+           for (var i = 0; i < diceCount; i++) {
+               diceResults.push(Math.ceil(Math.random() * 6));
+           }
 
-            var diceArea = document.getElementById('diceArea');
-            var table = '<table><tr>';
-            for (var k = 0; k < 4; k++) {
-                var soundName = soundMap[diceResults[k]];
-                table += '<td><img src="' + soundImages[soundName] + '" class="sound" alt="' + soundName + '"><br>' + soundName + '</td>';
-            }
-            table += '</tr><tr>';
-            for (var l = 0; l < 4; l++) {
-                var rhythmName = soundMap[diceResults[l]];
-                table += '<td><img src="' + rhythmImages[rhythmName] + '" class="rhythm" alt="' + rhythmName + '"></td>';
-            }
-            table += '</tr></table>';
-            diceArea.innerHTML = table;
-        }
 
-        function toggleMetronome() {
-            if (isMetronomePlaying) {
-                clearInterval(metronomeInterval);
-                metronomeButton.textContent = 'Start Metronome';
-                metronomeButton.style.backgroundColor = ''; // Reset color
-                isMetronomePlaying = false;
-            } else {
-                var bpm = document.getElementById('bpm').value;
-                if (bpm < 30 || bpm > 180) {
-                    alert('BPM should be between 30 and 180');
-                    return;
-                }
-                var interval = 60000 / bpm;
-                metronomeInterval = setInterval(() => {
-                    metronomeAudio.play();
-                    metronomeButton.style.backgroundColor = 'green';
-                    setTimeout(() => { metronomeButton.style.backgroundColor = ''; }, 500); // Change color for 0.5s
-                }, interval);
-                metronomeButton.textContent = 'Stop Metronome';
-                isMetronomePlaying = true;
-            }
-        }
-    // Get the current date and time
-    var now = new Date();
+           if (diceCount === 1) {
+               diceResults = [diceResults[0], diceResults[0], diceResults[0], diceResults[0]];
+           } else if (diceCount === 2) {
+               diceResults = [diceResults[0], diceResults[1], diceResults[0], diceResults[1]];
+           }
 
-    // Format the date and time
-    var dateTimeString = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
 
-    // Update the build info
-    document.getElementById('buildInfo').textContent = 'Build number: 1, Build time: ' + dateTimeString;
+           var diceArea = document.getElementById('diceArea');
+           var table = '<table><tr>';
+           for (var k = 0; k < 4; k++) {
+               var soundName = soundMap[diceResults[k]];
+               table += '<td><img src="' + soundImages[soundName] + '" class="sound" alt="' + soundName + '"><br>' + soundName + '</td>';
+           }
+           table += '</tr><tr>';
+           for (var l = 0; l < 4; l++) {
+               var rhythmName = soundMap[diceResults[l]];
+               table += '<td><img src="' + rhythmImages[rhythmName] + '" class="rhythm" alt="' + rhythmName + '"></td>';
+           }
+           table += '</tr></table>';
+           diceArea.innerHTML = table;
+       }
 
-    </script>
+
+       function toggleMetronome() {
+           if (isMetronomePlaying) {
+               clearInterval(metronomeInterval);
+               metronomeButton.textContent = 'Start Metronome';
+               metronomeButton.style.backgroundColor = ''; // Reset color
+               isMetronomePlaying = false;
+           } else {
+               var bpm = document.getElementById('bpm').value;
+               if (bpm < 30 || bpm > 180) {
+                   alert('BPM should be between 30 and 180');
+                   return;
+               }
+               var interval = 60000 / bpm;
+               metronomeInterval = setInterval(() => {
+                   metronomeAudio.play();
+                   metronomeButton.style.backgroundColor = 'green';
+                   setTimeout(() => { metronomeButton.style.backgroundColor = ''; }, 500); // Change color for 0.5s
+               }, interval);
+               metronomeButton.textContent = 'Stop Metronome';
+               isMetronomePlaying = true;
+           }
+       }
+   // Get the current date and time
+   var now = new Date();
+
+
+   // Format the date and time
+   var dateTimeString = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+
+
+   // Update the build info
+   document.getElementById('buildInfo').textContent = 'Build number: 1, Build time: ' + dateTimeString;
+
+
+   </script>
 </body>
 </html>
