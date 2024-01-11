@@ -70,6 +70,12 @@
         </select>
         <button onclick="rollDice()">Roll Dice</button>
 
+    <!-- Rhythm Selection -->
+    <div id="rhythmSelection">
+        <label><input type="checkbox" id="foodCheckbox" checked> Food</label>
+        <label><input type="checkbox" id="hotdogCheckbox" checked> Hot Dog</label>
+    </div>
+
         <!-- Metronome Controls -->
         <div id="metronomeControl">
             <label for="bpm">Metronome Speed (BPM):</label>
@@ -174,6 +180,24 @@
                 isMetronomePlaying = true;
             }
         }
+        function generateHotdogFoodCombination() {
+        var rhythms = [];
+        if (document.getElementById('foodCheckbox').checked) {
+            rhythms.push('Food');
+        }
+        if (document.getElementById('hotdogCheckbox').checked) {
+            rhythms.push('Hot Dog');
+        }
+
+        var combination = '';
+        for (var i = 0; i < 4; i++) {
+            var randomIndex = Math.floor(Math.random() * rhythms.length);
+            combination += rhythms[randomIndex] + ' ';
+        }
+
+        // Display the combination
+        // ...
+    }
     </script>
 </body>
 </html>
