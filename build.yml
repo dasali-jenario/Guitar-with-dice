@@ -1,0 +1,28 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Get build number
+        id: build_number
+        run: echo "::set-output name=build_number::$(git rev-list --count HEAD)"
+
+      - name: Update build number in HTML
+        run: |
+          sed -i "s/Build number: [0-9]*/Build number: ${{ steps.build_number.outputs.build_number }}/" dice.html
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m "Increment build number" -a
