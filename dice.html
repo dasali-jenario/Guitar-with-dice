@@ -56,7 +56,7 @@
     <div id="appContainer">
         <div id="titleArea">
             <h2>Guitar Practice App</h2>
-            <p><br>Build number: 3</p>
+            <p><br>Build number: 4</p>
             <div id="infoLink">
                 <a href="https://github.com/dasali-jenario/Guitar-with-dice/blob/main/README.md" title="Read more about this project" target="_blank">ℹ️</a>
             </div>
@@ -136,26 +136,7 @@
         };
 
         function rollDice() {
-            function rollDice() {
-                // Define all possible rhythms
-                var rhythms = ['Food', 'Hot Dog', 'Apple Pie', 'Grape Soda', 'Ice Cream Sundae', '1/4 Rest'];
-
-                // Filter the rhythms to only include the ones that are checked
-                var availableRhythms = rhythms.filter(function(rhythm) {
-                    return document.getElementById(rhythm.toLowerCase().replace(' ', '') + 'Checkbox').checked;
-                });
-
-                // Roll the dice
-                var diceCount = document.getElementById('diceCount').value;
-                var diceRolls = [];
-                for (var i = 0; i < diceCount; i++) {
-                    var diceRoll = availableRhythms[Math.floor(Math.random() * availableRhythms.length)];
-                    diceRolls.push(diceRoll);
-                }
-
-                // Display the dice rolls
-                document.getElementById('diceArea').textContent = diceRolls.join(', ');
-            }var diceCount = parseInt(document.getElementById('diceCount').value);
+            var diceCount = parseInt(document.getElementById('diceCount').value);
             var selectedRhythms = getSelectedRhythms();
 
             var diceResults = [];
