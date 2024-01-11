@@ -55,8 +55,7 @@
 <body>
     <div id="appContainer">
         <div id="titleArea">
-            <h2>Guitar Practice App</h2>
-            <p><br>Build number: 4</p>
+            <h2>Guitar Practice App v1.6</h2>
             <div id="infoLink">
                 <a href="https://github.com/dasali-jenario/Guitar-with-dice/blob/main/README.md" title="Read more about this project" target="_blank">ℹ️</a>
             </div>
@@ -70,16 +69,6 @@
             <option value="4">4 Dice</option>
         </select>
         <button onclick="rollDice()">Roll Dice</button>
-
-    <!-- Rhythm Selection -->
-    <div id="rhythmSelection">
-        <label><input type="checkbox" id="foodCheckbox" checked> Food</label>
-        <label><input type="checkbox" id="hotdogCheckbox" checked> Hot Dog</label>
-        <label><input type="checkbox" id="applepieCheckbox" checked> Apple Pie</label>
-        <label><input type="checkbox" id="grapesodaCheckbox" checked> Grape Soda</label>
-        <label><input type="checkbox" id="icrecreamsundaeCheckbox" checked>Ice Cream Sundae</label>
-        <label><input type="checkbox" id="14restCheckbox" checked> 1/4 Rest</label>
-    </div>
 
         <!-- Metronome Controls -->
         <div id="metronomeControl">
@@ -137,48 +126,6 @@
 
         function rollDice() {
             var diceCount = parseInt(document.getElementById('diceCount').value);
-            var selectedRhythms = getSelectedRhythms();
-
-            var diceResults = [];
-            for (var i = 0; i < diceCount; i++) {
-                diceResults.push(Math.ceil(Math.random() * 6));
-            }
-
-            if (diceCount === 1) {
-                diceResults = [diceResults[0], diceResults[0], diceResults[0], diceResults[0]];
-            } else if (diceCount === 2) {
-                diceResults = [diceResults[0], diceResults[1], diceResults[0], diceResults[1]];
-            }
-
-            var diceArea = document.getElementById('diceArea');
-            var table = '<table><tr>';
-            for (var k = 0; k < 4; k++) {
-                var soundName = soundMap[diceResults[k]];
-                if (selectedRhythms.includes(soundName)) {
-                    table += '<td><img src="' + soundImages[soundName] + '" class="sound" alt="' + soundName + '"><br>' + soundName + '</td>';
-                }
-            }
-            table += '</tr><tr>';
-            for (var l = 0; l < 4; l++) {
-                var rhythmName = soundMap[diceResults[l]];
-                if (selectedRhythms.includes(rhythmName)) {
-                    table += '<td><img src="' + rhythmImages[rhythmName] + '" class="rhythm" alt="' + rhythmName + '"></td>';
-                }
-            }
-            table += '</tr></table>';
-            diceArea.innerHTML = table;
-        }
-
-        function getSelectedRhythms() {
-            var selectedRhythms = [];
-            var rhythmCheckboxes = document.querySelectorAll('#rhythmSelection input[type="checkbox"]');
-            for (var i = 0; i < rhythmCheckboxes.length; i++) {
-                if (rhythmCheckboxes[i].checked) {
-                    selectedRhythms.push(rhythmCheckboxes[i].id.replace('Checkbox', ''));
-                }
-            }
-            return selectedRhythms;
-        }
             var diceResults = [];
             for (var i = 0; i < diceCount; i++) {
                 diceResults.push(Math.ceil(Math.random() * 6));
