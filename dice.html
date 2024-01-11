@@ -61,7 +61,11 @@
                 <a href="https://github.com/dasali-jenario/Guitar-with-dice/blob/main/README.md" title="Read more about this project" target="_blank">ℹ️</a>
             </div>
         </div>
-
+        <input type="checkbox" id="foodCheckbox" value="Food" checked> Food<br>
+        <input type="checkbox" id="hotdogCheckbox" value="Hot Dog" checked> Hot Dog<br>
+        <input type="checkbox" id="applePieCheckbox" value="Apple Pie" checked> Apple Pie<br>
+        <!-- Add more checkboxes as needed -->
+        
         <!-- Dice Selection and Roll -->
         <label for="diceCount">Choose number of dice:</label>
         <select id="diceCount">
@@ -125,6 +129,20 @@
             6: "1/4 Rest"
         };
 
+        function createSoundMap() {
+            var soundMap = {};
+            var checkboxes = document.querySelectorAll('input[type=checkbox]');
+            var index = 1;
+        checkboxes.forEach(function(checkbox) {
+            if (checkbox.checked) {
+                soundMap[index] = checkbox.value;
+             index++;
+        }
+    });
+    return soundMap;
+}
+
+var soundMap = createSoundMap();
         function rollDice() {
             var diceCount = parseInt(document.getElementById('diceCount').value);
             var diceResults = [];
@@ -176,13 +194,13 @@
             }
         }
     // Get the current date and time
-var now = new Date();
+    var now = new Date();
 
-// Format the date and time
-var dateTimeString = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+    // Format the date and time
+    var dateTimeString = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
 
-// Update the build info
-document.getElementById('buildInfo').textContent = 'Build number: 1, Build time: ' + dateTimeString;
+    // Update the build info
+    document.getElementById('buildInfo').textContent = 'Build number: 1, Build time: ' + dateTimeString;
 
     </script>
 </body>
