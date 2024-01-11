@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Guitar Practice App v1.6</title>
+    <h2>Guitar Practice App</h2>
+    <p id="buildInfo">Build number: 1, Build time: N/A</p>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -174,6 +175,15 @@
                 isMetronomePlaying = true;
             }
         }
+    // Get the current date and time
+var now = new Date();
+
+// Format the date and time
+var dateTimeString = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+
+// Update the build info
+document.getElementById('buildInfo').textContent = 'Build number: 1, Build time: ' + dateTimeString;
+
     </script>
 </body>
 </html>
