@@ -1,0 +1,8 @@
+"homepage": "http://dasali-jenario.github.io/Guitar-with-dice",
+
+"scripts": {
+  //...
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d build",
+  //...
+}
