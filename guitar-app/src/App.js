@@ -1,26 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 
 function App() {
-    const [exercises, setExercises] = useState([]);
-
-    useEffect(() => {
-        axios.get('http://localhost:3000/exercises')
-            .then(response => {
-                setExercises(response.data);
-            });
-    }, []);
-
-    return (
-        <div>
-            {exercises.map(exercise => (
-                <div key={exercise.id}>
-                    <h2>{exercise.name}</h2>
-                    <p>{exercise.description}</p>
-                </div>
-            ))}
-        </div>
-    );
+  return (
+    <div className="App">
+      {/* Your application code goes here */}
+    </div>
+  );
 }
 
 export default App;
