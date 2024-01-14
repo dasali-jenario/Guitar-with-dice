@@ -1,6 +1,7 @@
 import React from 'react';
 import DiceRoller from './DiceRoller';
 import Metronome from './Metronome';
+import './App.css';
 
 function App() {
   return (

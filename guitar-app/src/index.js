@@ -1,12 +1,21 @@
 // index.js
-
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import DiceRoller from './DiceRoller';
+import Metronome from './Metronome';
+import './App.css';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+function App() {
+  const style = {
+    fontSize: window.innerWidth < 600 ? '14px' : window.innerWidth < 1024 ? '18px' : '24px'
+  };
+
+  return (
+    <div className="App">
+      <h2 style={style}>Guitar Practice App</h2>
+      <DiceRoller />
+      <Metronome />
+    </div>
+  );
+}
+
+export default App;
