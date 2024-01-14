@@ -2,34 +2,68 @@
 
 import React, { useState } from 'react';
 
-const rhythms = ['rhythm1', 'rhythm2', 'rhythm3', 'rhythm4'];
+const rhythms = {
+ //   1: 'Apple Pie',
+        const rhythms = {
+            {
+                1: {
+                    name: 'Apple Pie',
+                    patternImage: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-applepie.png',
+                    logo: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/apple%20pie.png'
+                },
+                2: {
+                    name: 'Hot Dog',
+                    patternImage: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-hotdog.png',
+                    logo: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/hotdog.png'
+                },
+                3: {
+                    name: 'Grape Soda',
+                    patternImage: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-grapesoda.png',
+                    logo: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/logo-grapesoda.png'
+                },
+                4: {
+                    name: 'Food',
+                    patternImage: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-food.png',
+                    logo: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/logo-food.png'
+                },
+                5: {
+                    name: 'Icecream Sundae',
+                    patternImage: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-icecreamsunday.png',
+                    logo: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/logo-icecreamsunday.png'
+                },
+                6: {
+                    name: '1/4 Rest',
+                    patternImage: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/n-rest.png',
+                    logo: 'https://raw.githubusercontent.com/dasali-jenario/Guitar-with-dice/main/logo-rest.png'
+                }
+            }
 
-function DiceRoller() {
-  const [sequence, setSequence] = useState([]);
+    function DiceRoller() {
+        const [sequence, setSequence] = useState([]);
 
-  const getRandomRhythm = () => {
-    return rhythms[Math.floor(Math.random() * rhythms.length)];
-  }
+        const getRandomRhythm = () => {
+            return rhythms[Math.floor(Math.random() * Object.keys(rhythms).length) + 1];
+        }
 
-  const generateRhythmSequence = () => {
-    let sequence = [];
-    for (let i = 0; i < 4; i++) {
-        sequence.push(getRandomRhythm());
+        const generateRhythmSequence = () => {
+            let sequence = [];
+            for (let i = 0; i < 4; i++) {
+                    sequence.push(getRandomRhythm());
+            }
+            return sequence;
+        }
+
+        const handleClick = () => {
+            let sequence = generateRhythmSequence();
+            setSequence(sequence);
+        }
+
+        return (
+            <div>
+                <button onClick={handleClick}>Generate Rhythm Sequence</button>
+                <div>{sequence.map(rhythm => rhythm.name).join(', ')}</div>
+            </div>
+        );
     }
-    return sequence;
-  }
 
-  const handleClick = () => {
-    let sequence = generateRhythmSequence();
-    setSequence(sequence);
-  }
-
-  return (
-    <div>
-      <button onClick={handleClick}>Generate Rhythm Sequence</button>
-      <div>{sequence.join(', ')}</div>
-    </div>
-  );
-}
-
-export default DiceRoller;
+    export default DiceRoller;
