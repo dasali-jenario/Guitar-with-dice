@@ -1,9 +1,13 @@
 import React from 'react';
+import DiceRoller from './DiceRoller';
+import Metronome from './Metronome';
 
 function App() {
   return (
     <div className="App">
-      {/* Your application code goes here */}
+      <h2>Guitar Practice App</h2>
+      <DiceRoller />
+      <Metronome />
     </div>
   );
 }
