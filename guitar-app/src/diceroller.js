@@ -38,32 +38,40 @@ const rhythms = {
                 }
             }
 
-    function DiceRoller() {
-        const [sequence, setSequence] = useState([]);
-
-        const getRandomRhythm = () => {
-            return rhythms[Math.floor(Math.random() * Object.keys(rhythms).length) + 1];
-        }
-
-        const generateRhythmSequence = () => {
-            let sequence = [];
-            for (let i = 0; i < 4; i++) {
+            function DiceRoller() {
+                const [sequence, setSequence] = useState([]);
+              
+                const getRandomRhythm = () => {
+                  const keys = Object.keys(rhythms);
+                  const randomKey = keys[Math.floor(Math.random() * keys.length)];
+                  return rhythms[randomKey];
+                }
+              
+                const generateRhythmSequence = () => {
+                  let sequence = [];
+                  for (let i = 0; i < 4; i++) {
                     sequence.push(getRandomRhythm());
-            }
-            return sequence;
-        }
-
-        const handleClick = () => {
-            let sequence = generateRhythmSequence();
-            setSequence(sequence);
-        }
-
-        return (
-            <div>
-                <button onClick={handleClick}>Generate Rhythm Sequence</button>
-                <div>{sequence.map(rhythm => rhythm.name).join(', ')}</div>
-            </div>
-        );
-    }
-
-    export default DiceRoller;
+                  }
+                  return sequence;
+                }
+              
+                const handleClick = () => {
+                  let sequence = generateRhythmSequence();
+                  setSequence(sequence);
+                }
+              
+                return (
+                  <div>
+                    <button onClick={handleClick}>Roll Dice</button>
+                    <div>{sequence.map((rhythm, index) => (
+                      <div key={index}>
+                        <h2>{rhythm.name}</h2>
+                        <img src={rhythm.patternImage} alt={rhythm.name} />
+                        {rhythm.logo && <img src={rhythm.logo} alt={`${rhythm.name} logo`} />}
+                      </div>
+                    ))}</div>
+                  </div>
+                );
+              }
+              
+              export default DiceRoller;
